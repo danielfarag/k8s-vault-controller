@@ -1,0 +1,7 @@
+apiVersion: vault.iti.com/v1
+kind: VaultConnection
+metadata:
+  name: vault-connection-1
+spec:
+  host: https://3fe0-197-121-52-47.ngrok-free.app
+  token: hvs.xxxxxxxxxxxxxxxxx

@@ -1,0 +1,26 @@
+name: Build Controller Image
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_images:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: danielfarag
+          password: ${{ secrets.AUTH_TOKEN }}
+
+      - name: Build controller image with multiple tags
+        run: docker build  -t ghcr.io/danielfarag/k8s-vault-controller:latest ./controller
+
+      - name: Push controller image
+        run: docker push ghcr.io/danielfarag/k8s-vault-controller:latest

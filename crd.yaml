@@ -1,0 +1,73 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: vault-connections.vault.iti.com
+spec:
+  group: vault.iti.com
+  scope: Namespaced
+  names:
+    plural: vault-connections
+    singular: vault-connection
+    kind: VaultConnection
+  versions:
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              host:
+                type: string
+              token:
+                type: string
+    additionalPrinterColumns:
+    - jsonPath: .spec.host
+      name: host
+      type: string
+    - jsonPath: .spec.token
+      name: token
+      type: string
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: vault-secrets.vault.iti.com
+spec:
+  group: vault.iti.com
+  scope: Namespaced
+  names:
+    plural: vault-secrets
+    singular: vault-secret
+    kind: VaultSecret
+  versions:
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              connection:
+                type: string
+              vault:
+                type: string
+              secret:
+                type: string
+    additionalPrinterColumns:
+    - jsonPath: .spec.connection
+      name: connection
+      type: string
+    - jsonPath: .spec.vault
+      name: vault
+      type: string
+    - jsonPath: .spec.secret
+      name: secret
+      type: string
